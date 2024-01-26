@@ -1,12 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import NxWelcome from './nx-welcome';
+import Sidebar from '/src/components/Sidebar/Sidebar';
+import MainPage from '/src/components/MainPage';
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="react-weather2" />
+    <div className={styles.main_app}>
+      <img src="/src/assets/bg.jpg" alt="" className={styles.background} />
+      <Sidebar></Sidebar>
+      <MainPage></MainPage>
     </div>
   );
 }

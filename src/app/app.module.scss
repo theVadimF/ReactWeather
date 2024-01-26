@@ -1,1 +1,18 @@
-/* Your styles goes here. */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+.main_app {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
