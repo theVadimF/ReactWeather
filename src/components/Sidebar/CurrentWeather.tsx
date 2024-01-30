@@ -1,4 +1,5 @@
 import style from '/src/styles/sidebar.module.scss'
+import weatherCodes from '/src/assets/weather_codes.json'
 
 import { Icon } from '@iconify/react'
 
@@ -13,6 +14,10 @@ function ConditionImg( {weatherCode}: {weatherCode: number} ) {
 }
 
 export default function CurrentWeather() {
+  function getConditionText(code: number) {
+    return weatherCodes.weatherCode[code];
+  }
+
   return (
     <div className={style.current_wrapper}>
       <div className={style.current_top}>
@@ -22,7 +27,7 @@ export default function CurrentWeather() {
           <Icon icon="mingcute:celsius-line" className={style.big_unit_icon}></Icon>
         </div>
       </div>
-      <p className={style.condition_text}>Mostly Cloudy and Light Freezing Rain</p>
+      <p className={style.condition_text}>{getConditionText(10000)}</p>
     </div>
   )
 }
