@@ -1,7 +1,8 @@
-import { ReactElement } from "react"
+import { ReactElement, useContext } from "react"
 import style from "/src/styles/sidebar.module.scss"
 
 import { Icon } from "@iconify/react"
+import { WeatherContext } from "src/app/weatherContext.ts"
 
 interface DetailsProps {
   component: ReactElement,
@@ -29,14 +30,14 @@ function MinMaxTemp({min, max, unit}: MinMaxProps) {
       <div className={style.minmax_temp_wrap}>
         <Icon icon="lucide:move-up" className={style.details_icon} />
         <div className={style.temp_wrap}>
-          <span className={style.value}>{max}</span>
+          <span className={style.value}>{Math.round(max)}</span>
           <Icon icon="mingcute:celsius-line" className={style.temp_unit}></Icon>
         </div>
       </div>
       <div className={style.minmax_temp_wrap}>
         <Icon icon="lucide:move-down" className={style.details_icon} />
         <div className={style.temp_wrap}>
-          <span className={style.value}>{min}</span>
+          <span className={style.value}>{Math.round(min)}</span>
           <Icon icon="mingcute:celsius-line" className={style.temp_unit} />
         </div>
       </div>
@@ -81,24 +82,32 @@ function WindSpeed({value, unit}: {value: number, unit: string}) {
 }
 
 export default function CurrentDetails() {
-  return (
-    <div className={style.details_grid}>
-      <DetailsComponent
-        name="Min | Max"
-        component={<MinMaxTemp min={-20} max={-15} unit="c" />}
-      />
-      <DetailsComponent
-        name="Precipitation Probability"
-        component={<PercipitationProbability value={64} />}
-      />
-      <DetailsComponent
-        name="Humidity"
-        component={<Humidity value={64} />}
-      />
-      <DetailsComponent
-        name="Wind Speed"
-        component={<WindSpeed value={4} unit="km/h" />}
-      />
-    </div>
-  )
+  const weatherAll = useContext(WeatherContext);
+
+  console.log(weatherAll);
+
+  if (weatherAll) {
+    const today = weatherAll.timelines.daily[0].values;
+    const now = weatherAll.timelines.minutely[0].values;
+    return (
+      <div className={style.details_grid}>
+        <DetailsComponent
+          name="Min | Max"
+          component={<MinMaxTemp min={today.temperatureMin} max={today.temperatureMax} unit="c" />}
+        />
+        <DetailsComponent
+          name="Precipitation Probability"
+          component={<PercipitationProbability value={today.precipitationProbabilityAvg} />}
+        />
+        <DetailsComponent
+          name="Humidity"
+          component={<Humidity value={now.humidity} />}
+        />
+        <DetailsComponent
+          name="Wind Speed"
+          component={<WindSpeed value={now.windSpeed} unit="km/h" />}
+        />
+      </div>
+    )
+  }
 }
