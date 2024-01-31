@@ -91,3 +91,93 @@
     }
   }
 }
+
+.daily_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .day_block {
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 16px;
+    padding: 6px 13px;
+
+    .date {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .details_text {
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .condition_img {
+      height: 36px;
+      width: 36px;
+    }
+
+    .info {
+      .info_points {
+        display: grid;
+        grid-template-columns: 130px 80px 1fr;
+        gap: 10px;
+      }
+
+      .value {
+        font-weight: 300;
+        font-size: 20px;
+      }
+
+      .minmax_wrap {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3px;
+
+        .details_icon {
+          width: 18px;
+          height: 18px;
+        }
+
+        .minmax_temp_wrap {
+          display: flex;
+          align-items: center;
+
+          .temp_wrap {
+            display: flex;
+            align-content: flex-end;
+
+            .temp_unit {
+              margin-top: auto;
+            }
+          }
+        }
+      }
+
+      .details_entry {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        .text_unit {
+          font-size: 14px;
+          margin-left: 5px;
+        }
+        
+        .entry_icon {
+          width: 20px;
+          height: 20px;
+        }
+
+        .percentage_wrap {
+          display: flex;
+          align-items: flex-end;
+        }
+      }
+    }
+
+  }
+}

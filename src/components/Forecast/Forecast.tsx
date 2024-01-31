@@ -4,6 +4,7 @@ import styles from "/src/styles/main_page.module.scss"
 import ByTime from "./ByTime"
 import { WeatherContext } from "src/app/weatherContext.ts";
 import { useContext } from "react";
+import DailyForecast from "./DailyForecast"
 
 export default function MainPage() {
   const weatherAll = useContext(WeatherContext);
@@ -11,6 +12,7 @@ export default function MainPage() {
   return (
     <div className={styles.wrapper}>
       {weatherAll && <ByTime data={weatherAll.timelines.hourly} />}
+      {weatherAll && <DailyForecast data={weatherAll.timelines.daily} />}
     </div>
   )
 }
