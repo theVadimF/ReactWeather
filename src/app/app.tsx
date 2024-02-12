@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import Sidebar from '/src/components/Sidebar/Sidebar';
-import Forecast from '/src/components/Forecast/Forecast'
+import Sidebar from 'src/components/Sidebar/Sidebar';
+import Forecast from 'src/components/Forecast/Forecast'
 
 import weather_tmp from 'src/app/forecast.json'
 
@@ -26,13 +26,15 @@ export function App() {
   }, [])
 
   return (
-    <div className={styles.main_app}>
+    <>
       <img src="/src/assets/bg.jpg" alt="" className={styles.background} />
-      <WeatherContext.Provider value={weatherData}>
-        <Sidebar />
-        <Forecast />
-      </WeatherContext.Provider>
-    </div>
+      <div className={styles.main_app}>
+        <WeatherContext.Provider value={weatherData}>
+          <Sidebar />
+          <Forecast />
+        </WeatherContext.Provider>
+      </div>
+    </>
   );
 }
 

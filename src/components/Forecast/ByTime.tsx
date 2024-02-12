@@ -1,25 +1,9 @@
 import style from '/src/styles/forecast.module.scss'
-import weather_codes from '/src/assets/weather_codes.json'
 
 import { Icon } from '@iconify/react';
-import { useContext } from 'react';
-import { WeatherContext } from 'src/app/weatherContext.ts';
-import { findSourceMap } from 'module';
-import { strict } from 'assert';
+import { useState } from 'react';
 
 import { ConditionImg } from '../ConditionImg';
-
-// function ConditionIcon({code}: {code: number}) {
-//   function getConditionText(code: number) {
-//     return weather_codes.weatherCode[code];
-//   }
-
-//   return <img
-//     src={`/src/assets/weather_icons/small/2x/${code}.png`}
-//     alt={getConditionText(code)}
-//     className={style.condition_icon}
-//   />
-// }
 
 interface timeSlotProps {
   time: string,
@@ -33,7 +17,6 @@ function TimeSlot({time, code, temp, precipitation, temp_unit}: timeSlotProps) {
   return (
     <div className={style.time_slot}>
       <div className={style.time}>{time}</div>
-      {/* <ConditionIcon code={code} /> */}
       <ConditionImg
         weatherCode={code}
         is_night={false}
@@ -60,6 +43,8 @@ function TimeSlot({time, code, temp, precipitation, temp_unit}: timeSlotProps) {
 }
 
 export default function ByTime({data}: {data: [object]}) {
+  const [type, setType] = useState(1);
+
   function getSlot(slot: object, key: number) {
     const time = new Date(slot.time);
     return (
@@ -74,14 +59,34 @@ export default function ByTime({data}: {data: [object]}) {
     )
   }
 
+  function setActiveBtnStyle(type_id: number) {
+    if (type_id === type) {
+      return style.active;
+    }
+  }
+
+  let dataset = undefined
+
+  switch (type) {
+    case 1:
+      dataset = data.hourly;
+      break;
+    case 2:
+      dataset = data.minutely;
+      break;
+    default:
+      break;
+  }
+
+
   return (
     <div className={style.by_time_outer}>
       <div className={style.time_slider}>
-        {data.map((e: object, index: number) => getSlot(e, index))}
+        {dataset.map((e: object, index: number) => getSlot(e, index))}
       </div>
       <div className={style.button_wrap}>
-        <button className={`${style.time_button} ${style.active}`}>Hourly</button>
-        <button className={`${style.time_button}`}>Minutely</button>
+        <button className={`${style.time_button} ${setActiveBtnStyle(1)}`} onClick={() => setType(1)}>Hourly</button>
+        <button className={`${style.time_button} ${setActiveBtnStyle(2)}`} onClick={() => setType(2)}>Minutely</button>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { ConditionImg } from '../ConditionImg'
 import { Icon } from '@iconify/react'
-import style from '/src/styles/forecast.module.scss'
+import style from 'src/styles/forecast.module.scss'
 
 interface MinMaxProps {
   min: number,
@@ -35,7 +35,7 @@ function PercipitationProbability({value}: {value: number}) {
     <div className={style.details_entry}>
       <Icon icon="lucide:umbrella" className={style.entry_icon} />
       <div className={style.percentage_wrap}>
-        <span className={style.value}>{value}</span>
+        <span className={style.value}>{Math.round(value)}</span>
         <Icon icon="ic:round-percent" className={style.percent_icon} />
       </div>
     </div>
@@ -47,7 +47,7 @@ function WindSpeed({value, unit}: {value: number, unit: string}) {
     <div className={style.details_entry}>
       <Icon icon="ep:wind-power" className={style.entry_icon} />
       <div className={style.percentage_wrap}>
-        <span className={style.value}>{value}</span>
+        <span className={style.value}>{Math.round(value)}</span>
         <span className={style.text_unit}>{unit}</span>
       </div>
     </div>
@@ -58,7 +58,7 @@ function ForecastDay({data}: {data: object}) {
   const weekday = new Date(data.time).toLocaleDateString('en-EN', { weekday: 'long' })
   return <div className={style.day_block}>
     <ConditionImg
-      weatherCode={1001}
+      weatherCode={data.values.weatherCodeMax}
       is_night={false}
       className={style.condition_img}
     />
@@ -79,7 +79,6 @@ export default function DailyForecast({data}: {data: object}) {
   }
 
   return <div className={style.daily_wrapper}>
-    {/* <ForecastDay data={data[0].values} /> */}
     {data.map((e: object) => getDay(e))}
   </div>
 }

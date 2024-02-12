@@ -11,7 +11,9 @@ export default function MainPage() {
 
   return (
     <div className={styles.wrapper}>
-      {weatherAll && <ByTime data={weatherAll.timelines.hourly} />}
+      <h1 className={styles.heading}>Forecast</h1>
+      {weatherAll && <ByTime data={weatherAll.timelines} />}
+      <h1 className={styles.heading}>Daily</h1>
       {weatherAll && <DailyForecast data={weatherAll.timelines.daily} />}
     </div>
   )

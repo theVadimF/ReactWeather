@@ -1,3 +1,5 @@
+@use 'src/styles/mixins';
+
 .wrapper {
   width: 460px;
   height: 100%;
@@ -12,6 +14,12 @@
     justify-self: stretch;
     height: 100%;
   }
+
+  @include mixins.respond-to(mobile) {
+    height: fit-content;
+    width: 100%;
+    height: 100svh;
+  }
 }
 
 .current_wrapper {
@@ -20,40 +28,59 @@
   align-items: center;
   color: #FFF;
   gap: 20px;
-}
 
-.condition_text {
-  font-size: 16px;
-  font-weight: 400;
-}
+  @include mixins.respond-to(mobile) {
+    gap: 10px;
+  }
 
-.big_temp {
-  font-size: 96px;
-  font-weight: 300;
-}
+  .current_top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 
-.big_temp_wrap {
-  display: flex;
-  align-items: flex-end;
-}
+  .condition_text {
+    font-size: 16px;
+    font-weight: 400;
+  }
 
-.big_unit_icon {
-  width: auto;
-  height: 60px;
-  margin-bottom: 4px;
-  margin-left: -3px;
-}
+  .big_temp {
+    font-size: 96px;
+    font-weight: 300;
 
-.current_top {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+    @include mixins.respond-to(mobile) {
+      font-size: 65px;
+    }
+  }
 
-.big_weather_img {
-  height: 94px;
-  width: 94px;
-  object-fit: contain;
+  .big_temp_wrap {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .big_unit_icon {
+    width: auto;
+    height: 60px;
+    margin-bottom: 4px;
+    margin-left: -3px;
+
+    @include mixins.respond-to(mobile) {
+      height: 42px;
+    }
+  }
+
+  .big_weather_img {
+    $size: 94px;
+    height: $size;
+    width: $size;
+    object-fit: contain;
+
+    @include mixins.respond-to(mobile) {
+     $size: 60px;
+     height: $size;
+     width: $size;
+    }
+  }
 }
 
 .details_grid {
@@ -62,6 +89,10 @@
   gap: 12px 10px;
   padding: 0 60px;
   grid-template-columns: repeat(2, 1fr);
+
+  @include mixins.respond-to(mobile) {
+    padding: 0 20px;
+  }
 
   .details_text {
     font-size: 15px;
@@ -94,8 +125,9 @@
     }
 
     .percent_icon {
-      width: 18px;
-      height: 18px;
+      // width: 18px;
+      // height: 18px;
+      font-size: 18px;
     }
 
     .text_unit {
@@ -150,6 +182,10 @@
       height: 22px;
       object-fit: contain;
       margin-top: auto;
+
+      @media (max-width: 355px) {
+        height: 18px;
+      }
     }
   }
 
@@ -179,8 +215,3 @@
   }
 }
 
-// .update_time_block {
-//   display: flex;
-//   flex-direction: column;
-//   gap: ;
-// }

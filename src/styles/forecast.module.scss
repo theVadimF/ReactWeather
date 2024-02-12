@@ -1,5 +1,8 @@
+@use 'src/styles/mixins';
+
 .time_slider {
   $gap: 20px;
+  $mobile-gap: 10px;
 
   border-radius: 16px;
   background: #FFF;
@@ -10,18 +13,30 @@
   padding: 10px 0;
   overflow-x: auto;
 
+  @include mixins.respond-to(mobile) {
+    gap: $mobile-gap;
+  }
+
   .time_slot {
     &:first-child {
       margin-left: $gap;
+      @include mixins.respond-to(mobile) {
+        margin-left: $mobile-gap;
+      }
     }
 
     &:last-child {
       margin-right: $gap;
+      @include mixins.respond-to(mobile) {
+        margin-right: $mobile-gap;
+      }
     }
   }
 }
 
 .by_time_outer {
+  margin-bottom: 20px;
+
   .button_wrap {
     display: flex;
     gap: 10px;
@@ -53,12 +68,23 @@
   .time {
     font-size: 18px;
     font-weight: 400;
+
+    @include mixins.respond-to(mobile) {
+      font-size: 14px;
+    }
   }
 
   .condition_icon {
-    height: 46px;
-    width: 46px;
+    $size: 46px;
+    height: $size;
+    width: $size;
     object-fit: contain;
+
+    @include mixins.respond-to(mobile) {
+      $size: 40px;
+      height: $size;
+      width: $size;
+    }
   }
 
   .entries_wrap {
@@ -69,13 +95,17 @@
 
   .data_entry {
     display: flex;
+    gap: 5px;
     align-items: center;
     width: 100%;
     justify-content: space-between;
 
     .data_icon {
-      height: 18px;
-      width: 18px;
+      font-size: 16px;
+
+      @include mixins.respond-to(mobile) {
+        font-size: 14px;
+      }
     }
 
     .value_with_unit {
@@ -87,6 +117,19 @@
         font-weight: 400;
         min-width: 28px;
         text-align: right;
+
+        @include mixins.respond-to(mobile) {
+          font-size: 14px;
+          min-width: 22px;
+        }
+      }
+
+      .entry_icon {
+        font-size: 16px;
+
+        @include mixins.respond-to(mobile) {
+          font-size: 12px;
+        }
       }
     }
   }
@@ -118,18 +161,39 @@
     .condition_img {
       height: 36px;
       width: 36px;
+
+      @include mixins.respond-to(mobile) {
+        height: 28px;
+        width: 28px;
+      }
     }
+
+    $info_2x2: 350px;
 
     .info {
       .info_points {
         display: grid;
         grid-template-columns: 130px 80px 1fr;
         gap: 10px;
+
+        @include mixins.respond-to(mobile) {
+          grid-template-columns: 105px 64px 1fr;
+          gap: 5px;
+        }
+
+        @media screen and (max-width: $info_2x2) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
       }
 
       .value {
         font-weight: 300;
         font-size: 20px;
+
+        @include mixins.respond-to(mobile) {
+          font-size: 16px;
+        }
       }
 
       .minmax_wrap {
@@ -137,9 +201,19 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 3px;
 
+        @media screen and (max-width: $info_2x2) {
+          grid-column: 1/3;
+        }
+
+
         .details_icon {
           width: 18px;
           height: 18px;
+
+          @include mixins.respond-to(mobile) {
+            width: 14px;
+            height: 14px;
+          }
         }
 
         .minmax_temp_wrap {
@@ -152,6 +226,10 @@
 
             .temp_unit {
               margin-top: auto;
+
+              @include mixins.respond-to(mobile) {
+                font-size: 13px;
+              }
             }
           }
         }
@@ -165,16 +243,31 @@
         .text_unit {
           font-size: 14px;
           margin-left: 5px;
+
+          @include mixins.respond-to(mobile) {
+            font-size: 12px;
+          }
         }
-        
+
         .entry_icon {
           width: 20px;
           height: 20px;
+          @include mixins.respond-to(mobile) {
+            width: 16px;
+            height: 16px;
+          }
         }
 
         .percentage_wrap {
           display: flex;
           align-items: flex-end;
+          .percent_icon {
+            font-size: 16px;
+
+            @include mixins.respond-to(mobile) {
+              font-size: 12px;
+            }
+          }
         }
       }
     }

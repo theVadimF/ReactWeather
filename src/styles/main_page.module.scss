@@ -1,3 +1,5 @@
+@use 'src/styles/mixins';
+
 .wrapper {
   width: 100%;
   height: 100%;
@@ -5,4 +7,15 @@
   padding: 15px;
   box-sizing: border-box;
   overflow-x: hidden;
+
+  @include mixins.respond-to(mobile) {
+    overflow-x: unset;
+  }
+  .heading {
+    color: #FFF;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
 }
