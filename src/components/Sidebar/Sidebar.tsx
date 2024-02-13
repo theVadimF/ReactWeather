@@ -32,10 +32,14 @@ function BottomBar() {
   )
 }
 
-export default function Sidebar() {
+export default function Sidebar({setSearchState, location}) {
+  console.log(setSearchState);
   return (
     <div className={style.wrapper}>
-      <LocationPicker />
+      <LocationPicker
+        setSearchState={setSearchState}
+        location={location}
+      />
       <div className={style.middle}>
         <CurrentWeather />
         <CurrentDetails />

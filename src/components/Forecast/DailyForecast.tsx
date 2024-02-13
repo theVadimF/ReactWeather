@@ -74,11 +74,11 @@ function ForecastDay({data}: {data: object}) {
 }
 
 export default function DailyForecast({data}: {data: object}) {
-  function getDay(data: object) {
-    return <ForecastDay data={data} />
+  function getDay(data: object, id: number) {
+    return <ForecastDay data={data} key={id} />
   }
 
   return <div className={style.daily_wrapper}>
-    {data.map((e: object) => getDay(e))}
+    {data.map((e: object, id: number) => getDay(e, id))}
   </div>
 }

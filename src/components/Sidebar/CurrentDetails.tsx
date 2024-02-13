@@ -1,5 +1,5 @@
 import { ReactElement, useContext } from "react"
-import style from "/src/styles/sidebar.module.scss"
+import style from "src/styles/sidebar.module.scss"
 
 import { Icon } from "@iconify/react"
 import { WeatherContext } from "src/app/weatherContext.ts"

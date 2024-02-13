@@ -1,13 +1,34 @@
+import { useContext } from "react";
 import style from "/src/styles/location_picker.module.scss"
 import { Icon } from '@iconify/react';
+import { WeatherContext } from "src/app/weatherContext";
 
-export default function LocationPicker() {
+export default function LocationPicker({setSearchState, location}) {
+  function open_search() {
+    setSearchState(true);
+  }
+
+  const weatherAll = useContext(WeatherContext);
+
+  function get_location() {
+    if (weatherAll) {
+      const name = weatherAll.location.name.split(',')[0];
+      if (name) {
+        return name;
+      }
+    }
+
+    return location;
+  }
+
+
   return (
     <div>
-      <button className={style.location_btn}>
+      <button className={style.location_btn} onClick={open_search}> 
         <Icon icon="mdi:location" className={style.location_icon}></Icon>
-        <span className={style.location_text}>Novosibirsk</span>
+        <span className={style.location_text}>{get_location()}</span>
       </button>
     </div>
   )
 }
+
