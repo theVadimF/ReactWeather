@@ -7,21 +7,21 @@ import LocationPicker from './LocationPicker';
 import CurrentWeather from './CurrentWeather';
 import CurrentDetails from './CurrentDetails';
 
-function ButtonIcon({icon}: {icon: string}) {
+function ButtonIcon({icon, handleClick}: {icon: string, handleClick: Function}) {
   return (
-    <button className={style.sidebar_btn}>
+    <button className={style.sidebar_btn} onClick={handleClick}>
       <Icon icon={icon} className={style.icon_btn} />
     </button>
   )
 }
 
-function BottomBar() {
+function BottomBar({getData, updateTime}) {
   return (
     <div className={style.bottom_bar}>
       <div className={style.left}>
-        <ButtonIcon icon="tabler:reload" />
+        <ButtonIcon icon="tabler:reload" handleClick={getData} />
         <div className={style.update_time_block}>
-          <p className={style.time}>12:34</p>
+          <p className={style.time}>{updateTime}</p>
           <p className={style.label}>Last Update</p>
         </div>
       </div>
@@ -32,7 +32,7 @@ function BottomBar() {
   )
 }
 
-export default function Sidebar({setSearchState, location}) {
+export default function Sidebar({setSearchState, location, getData, updateTime}) {
   console.log(setSearchState);
   return (
     <div className={style.wrapper}>
@@ -44,7 +44,10 @@ export default function Sidebar({setSearchState, location}) {
         <CurrentWeather />
         <CurrentDetails />
       </div>
-      <BottomBar />
+      <BottomBar
+        getData={getData}
+        updateTime={updateTime}
+      />
     </div>
   )
 }
