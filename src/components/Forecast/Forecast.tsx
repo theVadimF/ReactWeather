@@ -9,12 +9,15 @@ import DailyForecast from "./DailyForecast"
 export default function MainPage() {
   const weatherAll = useContext(WeatherContext);
 
-  return (
-    <div className={styles.wrapper}>
+  if (weatherAll) {
+  return <div className={styles.wrapper}>
       <h1 className={styles.heading}>Forecast</h1>
-      {weatherAll && <ByTime data={weatherAll.timelines} />}
+      <ByTime data={weatherAll.timelines} />
       <h1 className={styles.heading}>Daily</h1>
-      {weatherAll && <DailyForecast data={weatherAll.timelines.daily} />}
+      <DailyForecast data={weatherAll.timelines.daily} />
     </div>
-  )
+  }
+  return <div className={styles.wrapper}>
+    <h1 className={styles.heading}>Waiting for data...</h1>
+  </div>
 }

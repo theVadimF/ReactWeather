@@ -2,9 +2,15 @@ import styles from 'src/app/app.module.scss'
 
 import { Icon } from "@iconify/react"
 import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-export default function LocationSearch({searchState, setSearchState, setLocation}) {
+interface LocationSearchInterface {
+  setSearchState: React.Dispatch<React.SetStateAction<boolean>>
+  searchState: boolean,
+  setLocation: React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function LocationSearch({searchState, setSearchState, setLocation}: LocationSearchInterface) {
   function close_search() {
     setSearchState(false);
     setLocationInput('');

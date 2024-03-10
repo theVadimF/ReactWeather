@@ -11,16 +11,18 @@ import React, { useState, useEffect } from 'react';
 
 import { WeatherContext } from './weatherContext';
 import { api_key } from './api_key';
+import { TomorrowIO } from 'src/assets/tommorow_io_interface';
 
 export function App() {
-  const [weatherData, setWeatherData] = useState(undefined);
+  const [weatherData, setWeatherData] = useState<undefined|TomorrowIO>(undefined);
   const [searchState, setSearchState] = useState(false);
   const [location, setLocation] = useState('novosibirsk');
   const [updateTime, setUpdateTime] = useState('Never');
 
   const currentDate = new Date();
 
-  function handleResult(json) {
+  function handleResult(json: TomorrowIO) {
+    console.log(json);
     setWeatherData(json);
     setUpdateTime(currentDate.getHours() + ':' + String(currentDate.getMinutes()).padStart(2, "0"));
   }
@@ -38,27 +40,25 @@ export function App() {
     // get_data();
   }, [location])
 
-  return (
-    <>
-      <img src="/src/assets/bg.jpg" alt="" className={styles.background} />
-      <div className={styles.main_app}>
-        <WeatherContext.Provider value={weatherData}>
-          <Sidebar
-            setSearchState={setSearchState}
-            location={location}
-            getData={get_data}
-            updateTime={updateTime}
-          />
-          <Forecast />
-          <LocationSearch 
-            setSearchState={setSearchState}
-            searchState={searchState}
-            setLocation={setLocation}
-          /> 
-        </WeatherContext.Provider>
-      </div>
-    </>
-  );
+  return <>
+    <img src="/src/assets/bg.jpg" alt="" className={styles.background} />
+    <div className={styles.main_app}>
+      <WeatherContext.Provider value={weatherData}>
+        <Sidebar
+          setSearchState={setSearchState}
+          location={location}
+          getData={get_data}
+          updateTime={updateTime}
+        />
+        <Forecast />
+        <LocationSearch 
+          setSearchState={setSearchState}
+          searchState={searchState}
+          setLocation={setLocation}
+        /> 
+      </WeatherContext.Provider>
+    </div>
+  </>
 }
 
 export default App;

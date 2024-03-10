@@ -3,7 +3,12 @@ import style from "/src/styles/location_picker.module.scss"
 import { Icon } from '@iconify/react';
 import { WeatherContext } from "src/app/weatherContext";
 
-export default function LocationPicker({setSearchState, location}) {
+interface LocationPickerInterface {
+  setSearchState: React.Dispatch<React.SetStateAction<boolean>>,
+  location: string,
+}
+
+export default function LocationPicker({setSearchState, location}: LocationPickerInterface) {
   function open_search() {
     setSearchState(true);
   }

@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import { useState } from 'react';
 
 import { ConditionImg } from '../ConditionImg';
+import { Hourly, Minutely, Timelines } from 'src/assets/tommorow_io_interface';
 
 interface timeSlotProps {
   time: string,
@@ -42,10 +43,10 @@ function TimeSlot({time, code, temp, precipitation, temp_unit}: timeSlotProps) {
   )
 }
 
-export default function ByTime({data}: {data: [object]}) {
+export default function ByTime({data}: {data: Timelines} ) {
   const [type, setType] = useState(1);
 
-  function getSlot(slot: object, key: number) {
+  function getSlot(slot: Minutely|Hourly, key: number) {
     const time = new Date(slot.time);
     return (
       <TimeSlot
@@ -75,19 +76,21 @@ export default function ByTime({data}: {data: [object]}) {
       dataset = data.minutely;
       break;
     default:
+      console.error(`Unknown timeline type: ${type}`);
       break;
   }
 
-
-  return (
-    <div className={style.by_time_outer}>
-      <div className={style.time_slider}>
-        {dataset.map((e: object, index: number) => getSlot(e, index))}
+  if (dataset) {
+    return (
+      <div className={style.by_time_outer}>
+        <div className={style.time_slider}>
+          {dataset.map((e: Minutely|Hourly, index: number) => getSlot(e, index))}
+        </div>
+        <div className={style.button_wrap}>
+          <button className={`${style.time_button} ${setActiveBtnStyle(1)}`} onClick={() => setType(1)}>Hourly</button>
+          <button className={`${style.time_button} ${setActiveBtnStyle(2)}`} onClick={() => setType(2)}>Minutely</button>
+        </div>
       </div>
-      <div className={style.button_wrap}>
-        <button className={`${style.time_button} ${setActiveBtnStyle(1)}`} onClick={() => setType(1)}>Hourly</button>
-        <button className={`${style.time_button} ${setActiveBtnStyle(2)}`} onClick={() => setType(2)}>Minutely</button>
-      </div>
-    </div>
-  )
+    )
+  }
 }

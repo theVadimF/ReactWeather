@@ -6,8 +6,9 @@ import { Icon } from '@iconify/react';
 import LocationPicker from './LocationPicker';
 import CurrentWeather from './CurrentWeather';
 import CurrentDetails from './CurrentDetails';
+import React from 'react';
 
-function ButtonIcon({icon, handleClick}: {icon: string, handleClick: Function}) {
+function ButtonIcon({icon, handleClick}: {icon: string, handleClick: () => void}) {
   return (
     <button className={style.sidebar_btn} onClick={handleClick}>
       <Icon icon={icon} className={style.icon_btn} />
@@ -15,7 +16,13 @@ function ButtonIcon({icon, handleClick}: {icon: string, handleClick: Function}) 
   )
 }
 
-function BottomBar({getData, updateTime}) {
+
+interface BottomBarInterface {
+  getData: () => void,
+  updateTime: string, 
+}
+
+function BottomBar({getData, updateTime}: BottomBarInterface) {
   return (
     <div className={style.bottom_bar}>
       <div className={style.left}>
@@ -32,7 +39,14 @@ function BottomBar({getData, updateTime}) {
   )
 }
 
-export default function Sidebar({setSearchState, location, getData, updateTime}) {
+interface sidebarInterface {
+  setSearchState: React.Dispatch<React.SetStateAction<boolean>>,
+  location: string,
+  getData: () => void,
+  updateTime: string,
+}
+
+export default function Sidebar({setSearchState, location, getData, updateTime}: sidebarInterface) {
   console.log(setSearchState);
   return (
     <div className={style.wrapper}>
